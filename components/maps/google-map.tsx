@@ -17,7 +17,6 @@ interface GoogleMapProps {
   }>
   height?: string
   width?: string
-  apiKey?: string
   useCustomStyle?: boolean
 }
 
@@ -153,13 +152,30 @@ export function GoogleMap({
   markers = [],
   height = "400px",
   width = "100%",
-  apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   useCustomStyle = true,
 }: GoogleMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
   const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [apiKey, setApiKey] = useState<string>("")
+
+  useEffect(() => {
+    // Fetch the API key from our secure endpoint
+    const fetchApiKey = async () => {
+      try {
+        const response = await fetch("/api/maps/config")
+        const data = await response.json()
+        setApiKey(data.apiKey)
+      } catch (error) {
+        console.error("Error fetching Maps API key:", error)
+        setError("Failed to load Maps configuration")
+        setLoading(false)
+      }
+    }
+
+    fetchApiKey()
+  }, [])
 
   useEffect(() => {
     if (!apiKey) {
@@ -202,6 +218,11 @@ export function GoogleMap({
 
           // Add markers if provided
           markers.forEach((marker) => {
+            if (!google || !google.maps) {
+              console.error("Google Maps API not loaded")
+              return
+            }
+
             const markerOptions: google.maps.MarkerOptions = {
               position: marker.position,
               map,

@@ -214,7 +214,6 @@ export default function InsightsPage() {
                   useCustomStyle={true}
                   center={{ lat: 22.5937, lng: 78.9629 }} // Center of India
                   zoom={5}
-                  apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}
                 />
               </div>
 

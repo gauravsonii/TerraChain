@@ -48,7 +48,13 @@ cp .env.local.example .env.local
 ### Mappls Configuration
 1. Sign up for a [Mappls account](https://www.mappls.com/)
 2. Create an API key from the developer dashboard
-3. Copy the API key to your `.env.local` file
+3. Copy the API key to your `.env.local` file as `MAPPLS_API_KEY`
+
+### Google Maps Configuration
+1. Sign up for a [Google Cloud Platform account](https://cloud.google.com/)
+2. Create a project and enable the Maps JavaScript API
+3. Create an API key with appropriate restrictions
+4. Add the key to your `.env.local` file as `GOOGLE_MAPS_API_KEY`
 
 ### OpenRouter Configuration
 1. Sign up for an [OpenRouter account](https://openrouter.ai/)
@@ -72,70 +78,70 @@ cp .env.local.example .env.local
 \`\`\`sql
 -- Land Records Table
 CREATE TABLE land_records (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  owner TEXT NOT NULL,
-  location TEXT NOT NULL,
-  area NUMERIC NOT NULL,
-  status TEXT NOT NULL DEFAULT 'pending',
-  district TEXT NOT NULL,
-  state TEXT NOT NULL,
-  survey_number TEXT,
-  ulpin TEXT,
-  user_id TEXT,
-  document_hash TEXT,
-  transaction_hash TEXT,
-  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+ id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+ owner TEXT NOT NULL,
+ location TEXT NOT NULL,
+ area NUMERIC NOT NULL,
+ status TEXT NOT NULL DEFAULT 'pending',
+ district TEXT NOT NULL,
+ state TEXT NOT NULL,
+ survey_number TEXT,
+ ulpin TEXT,
+ user_id TEXT,
+ document_hash TEXT,
+ transaction_hash TEXT,
+ last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+ created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Users Table
 CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  auth_id TEXT UNIQUE,
-  auth_provider TEXT NOT NULL,
-  name TEXT NOT NULL,
-  email TEXT,
-  phone TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+ id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+ auth_id TEXT UNIQUE,
+ auth_provider TEXT NOT NULL,
+ name TEXT NOT NULL,
+ email TEXT,
+ phone TEXT,
+ created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Documents Table
 CREATE TABLE documents (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES users(id),
-  land_record_id UUID REFERENCES land_records(id),
-  document_type TEXT NOT NULL,
-  file_name TEXT NOT NULL,
-  file_size INTEGER NOT NULL,
-  file_url TEXT NOT NULL,
-  hash TEXT,
-  status TEXT NOT NULL DEFAULT 'pending',
-  verification_result JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+ id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+ user_id UUID REFERENCES users(id),
+ land_record_id UUID REFERENCES land_records(id),
+ document_type TEXT NOT NULL,
+ file_name TEXT NOT NULL,
+ file_size INTEGER NOT NULL,
+ file_url TEXT NOT NULL,
+ hash TEXT,
+ status TEXT NOT NULL DEFAULT 'pending',
+ verification_result JSONB,
+ created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 -- Add some sample data
 INSERT INTO land_records (owner, location, area, status, district, state, survey_number)
 VALUES 
-  ('Rajesh Kumar', 'North District, Plot 123', 5.2, 'verified', 'North District', 'Delhi', '123/A'),
-  ('Priya Singh', 'South District, Plot 456', 3.7, 'pending', 'South District', 'Karnataka', '456/B'),
-  ('Amit Patel', 'East District, Plot 789', 2.1, 'verified', 'East District', 'Gujarat', '789/C'),
-  ('Sunita Sharma', 'West District, Plot 101', 4.5, 'disputed', 'West District', 'Maharashtra', '101/D'),
-  ('Vikram Malhotra', 'Central District, Plot 202', 6.3, 'verified', 'Central District', 'Uttar Pradesh', '202/E');
+ ('Rajesh Kumar', 'North District, Plot 123', 5.2, 'verified', 'North District', 'Delhi', '123/A'),
+ ('Priya Singh', 'South District, Plot 456', 3.7, 'pending', 'South District', 'Karnataka', '456/B'),
+ ('Amit Patel', 'East District, Plot 789', 2.1, 'verified', 'East District', 'Gujarat', '789/C'),
+ ('Sunita Sharma', 'West District, Plot 101', 4.5, 'disputed', 'West District', 'Maharashtra', '101/D'),
+ ('Vikram Malhotra', 'Central District, Plot 202', 6.3, 'verified', 'Central District', 'Uttar Pradesh', '202/E');
 \`\`\`
 
 ## Step 5: Set Up VS Code
 
 1. Install the following VS Code extensions for a better development experience:
- - ESLint
- - Prettier
- - Tailwind CSS IntelliSense
- - ES7+ React/Redux/React-Native snippets
+- ESLint
+- Prettier
+- Tailwind CSS IntelliSense
+- ES7+ React/Redux/React-Native snippets
 
 2. Configure VS Code settings:
- - Open VS Code settings (File > Preferences > Settings or Ctrl+,)
- - Enable "Format on Save"
- - Set Default Formatter to Prettier
+- Open VS Code settings (File > Preferences > Settings or Ctrl+,)
+- Enable "Format on Save"
+- Set Default Formatter to Prettier
 
 3. Open the project in VS Code:
 \`\`\`bash

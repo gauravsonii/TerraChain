@@ -63,8 +63,8 @@
     "ai": "latest",
     "@ai-sdk/openai": "latest",
     "firebase": "latest",
-    "@googlemaps/js-api-loader": "latest",
-    "@supabase/supabase-js": "latest"
+    "@supabase/supabase-js": "latest",
+    "@googlemaps/js-api-loader": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

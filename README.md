@@ -34,36 +34,37 @@ TerraChain is a comprehensive platform that combines AI intelligence with blockc
 ### Installation
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/ayushmorbar/terrachain.git
-   cd terrachain
-   \`\`\`
+  \`\`\`bash
+  git clone https://github.com/ayushmorbar/terrachain.git
+  cd terrachain
+  \`\`\`
 
 2. Install dependencies:
-   \`\`\`bash
-   npm install
-   \`\`\`
+  \`\`\`bash
+  npm install
+  \`\`\`
 
 3. Set up environment variables:
-   Create a `.env.local` file with the following variables:
-   \`\`\`
-   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address
-   NEXT_PUBLIC_MAPPLS_API_KEY=your_mappls_api_key
-   OPENROUTER_API_KEY=your_openrouter_api_key
-   DIGILOCKER_CLIENT_ID=your_digilocker_client_id
-   DIGILOCKER_CLIENT_SECRET=your_digilocker_client_secret
-   DIGILOCKER_REDIRECT_URI=your_digilocker_redirect_uri
-   MERI_PEHCHAAN_CLIENT_ID=your_meri_pehchaan_client_id
-   MERI_PEHCHAAN_CLIENT_SECRET=your_meri_pehchaan_client_secret
-   MERI_PEHCHAAN_REDIRECT_URI=your_meri_pehchaan_redirect_uri
-   \`\`\`
+  Create a `.env.local` file with the following variables:
+  \`\`\`
+  NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+  NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address
+  MAPPLS_API_KEY=your_mappls_api_key
+  GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+  OPENROUTER_API_KEY=your_openrouter_api_key
+  DIGILOCKER_CLIENT_ID=your_digilocker_client_id
+  DIGILOCKER_CLIENT_SECRET=your_digilocker_client_secret
+  DIGILOCKER_REDIRECT_URI=your_digilocker_redirect_uri
+  MERI_PEHCHAAN_CLIENT_ID=your_meri_pehchaan_client_id
+  MERI_PEHCHAAN_CLIENT_SECRET=your_meri_pehchaan_client_secret
+  MERI_PEHCHAAN_REDIRECT_URI=your_meri_pehchaan_redirect_uri
+  \`\`\`
 
 4. Run the development server:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+  \`\`\`bash
+  npm run dev
+  \`\`\`
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
@@ -138,6 +139,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Built with chains and blocks by Offbeats!
 - Special thanks to the open-source community for their invaluable contributions.
-\`\`\`
-
-## 12. Let's create a detailed setup guide:

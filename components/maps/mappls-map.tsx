@@ -16,7 +16,6 @@ interface MapplsMapProps {
   }>
   height?: string
   width?: string
-  apiKey?: string
 }
 
 export function MapplsMap({
@@ -25,18 +24,36 @@ export function MapplsMap({
   markers = [],
   height = "400px",
   width = "100%",
-  apiKey = process.env.NEXT_PUBLIC_MAPPLS_API_KEY || "",
 }: MapplsMapProps) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mapInstance, setMapInstance] = useState<any>(null)
+  const [apiKey, setApiKey] = useState<string | null>(null)
+
+  // Fetch the API key from our secure endpoint
+  useEffect(() => {
+    async function fetchApiKey() {
+      try {
+        const response = await fetch("/api/maps/mappls-config")
+        if (!response.ok) {
+          throw new Error("Failed to fetch Mappls API key")
+        }
+        const data = await response.json()
+        setApiKey(data.apiKey)
+      } catch (err) {
+        console.error("Error fetching Mappls API key:", err)
+        setError("Failed to load Mappls API key")
+        setLoading(false)
+      }
+    }
+
+    fetchApiKey()
+  }, [])
 
   useEffect(() => {
     if (!apiKey) {
-      setError("Mappls API key is missing")
-      setLoading(false)
-      return
+      return // Wait until we have the API key
     }
 
     // Load Mappls SDK
@@ -88,9 +105,9 @@ export function MapplsMap({
             if (marker.info) {
               const popup = new window.mapplsgl.Popup({ offset: 25 }).setHTML(
                 `<div>
-                  <h3 style="font-weight: bold; font-size: 14px;">${marker.title || "Land Parcel"}</h3>
-                  <p style="font-size: 12px; margin-top: 5px;">${marker.info}</p>
-                </div>`,
+                 <h3 style="font-weight: bold; font-size: 14px;">${marker.title || "Land Parcel"}</h3>
+                 <p style="font-size: 12px; margin-top: 5px;">${marker.info}</p>
+               </div>`,
               )
 
               // Add marker to map
@@ -137,7 +154,7 @@ export function MapplsMap({
         mapInstance.remove()
       }
     }
-  }, [apiKey])
+  }, [apiKey, center, markers, zoom])
 
   // Update map center and zoom if props change and map is initialized
   useEffect(() => {
@@ -179,4 +196,11 @@ export function MapplsMap({
       <div ref={mapRef} style={{ height: "100%", width: "100%" }} className="rounded-lg shadow-md" />
     </div>
   )
+}
+
+// Add TypeScript interface for the window object to include mapplsgl
+declare global {
+  interface Window {
+    mapplsgl: any
+  }
 }
