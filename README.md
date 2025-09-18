@@ -2,7 +2,7 @@
 
 TerraChain is a comprehensive platform that combines AI intelligence with blockchain security for transparent, tamper-proof land record management in India.
 
-## 🚀 Features
+## 🚀 Features 
 
 - **Secure Authentication**: Login via DigiLocker or Meri Pehchaan with secure session storage
 - **Dashboard**: Central hub with cards linking to main tools and user activity tracking
